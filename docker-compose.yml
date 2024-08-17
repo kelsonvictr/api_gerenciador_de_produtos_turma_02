@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: gerenciador_de_produtos_db
+    environment:
+      POSTGRES_DB: gerenciador_de_produtos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    ports:
+      - "5439:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gerenciador_network
+
+volumes:
+  postgres_data:
+
+networks:
+  gerenciador_network:
