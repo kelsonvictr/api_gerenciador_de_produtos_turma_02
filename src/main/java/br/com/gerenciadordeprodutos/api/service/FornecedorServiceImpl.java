@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class FornecedorServiceImpl implements FornecedorService {
@@ -39,5 +40,24 @@ public class FornecedorServiceImpl implements FornecedorService {
        return fornecedorRepository.findById(id)
                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                        "Fornecedor não encontrado"));
+    }
+
+    @Override
+    public List<Fornecedor> buscarTodosFornecedores() {
+        return fornecedorRepository.findAll();
+    }
+
+    @Override
+    public Fornecedor atualizarFornecedor(Long id, CriarFornecedorRequest criarFornecedorRequest) {
+        Fornecedor fornecedorExistente = fornecedorRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Fornecedor não encontrado"));
+
+        fornecedorExistente.setNome(criarFornecedorRequest.nome());
+        fornecedorExistente.setCnpj(criarFornecedorRequest.cnpj());
+        fornecedorExistente.setEmail(criarFornecedorRequest.email());
+        fornecedorExistente.setTipoFornecedor(criarFornecedorRequest.tipoFornecedor());
+
+        return fornecedorRepository.save(fornecedorExistente);
     }
 }
