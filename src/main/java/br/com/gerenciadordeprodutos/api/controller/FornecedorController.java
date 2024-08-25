@@ -4,6 +4,7 @@ import br.com.gerenciadordeprodutos.api.dtos.CriarFornecedorRequest;
 import br.com.gerenciadordeprodutos.api.dtos.FornecedorCriadoResponse;
 import br.com.gerenciadordeprodutos.api.model.Fornecedor;
 import br.com.gerenciadordeprodutos.api.service.FornecedorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class FornecedorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public FornecedorCriadoResponse criarFornecedor(@RequestBody CriarFornecedorRequest criarFornecedorRequest) {
+    public FornecedorCriadoResponse criarFornecedor(@Valid @RequestBody CriarFornecedorRequest criarFornecedorRequest) {
         return fornecedorService.criarFornecedor(criarFornecedorRequest);
     }
 
@@ -39,6 +40,12 @@ public class FornecedorController {
     @ResponseStatus(HttpStatus.OK)
     public Fornecedor atualizarFornecedor(@PathVariable Long id, @RequestBody CriarFornecedorRequest criarFornecedorRequest) {
         return fornecedorService.atualizarFornecedor(id, criarFornecedorRequest);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarFornecedorPeloId(@PathVariable Long id) {
+        fornecedorService.deletarFornecedorPeloId(id);
     }
 
 }

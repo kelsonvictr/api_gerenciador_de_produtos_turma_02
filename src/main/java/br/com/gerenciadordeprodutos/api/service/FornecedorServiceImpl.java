@@ -60,4 +60,13 @@ public class FornecedorServiceImpl implements FornecedorService {
 
         return fornecedorRepository.save(fornecedorExistente);
     }
+
+    @Override
+    public void deletarFornecedorPeloId(Long id) {
+        Fornecedor fornecedorExistente = fornecedorRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Fornecedor não encontrado"));
+        fornecedorRepository.delete(fornecedorExistente);
+        //fornecedorRepository.deleteById(fornecedorExistente.getId());
+    }
 }
