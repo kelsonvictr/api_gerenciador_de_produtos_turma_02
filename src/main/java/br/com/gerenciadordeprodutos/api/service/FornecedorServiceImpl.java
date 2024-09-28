@@ -45,7 +45,7 @@ public class FornecedorServiceImpl implements FornecedorService {
 
         return new FornecedorCriadoResponse(
                 "Fornecedor criado com sucesso",
-                fornecedor.getId()
+                fornecedorCriado.getId()
         );
     }
 

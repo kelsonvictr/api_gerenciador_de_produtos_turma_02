@@ -2,7 +2,6 @@ package br.com.gerenciadordeprodutos.api.controller;
 
 import br.com.gerenciadordeprodutos.api.dtos.CriarClienteRequest;
 import br.com.gerenciadordeprodutos.api.dtos.ClienteCriadoResponse;
-import br.com.gerenciadordeprodutos.api.dtos.ClienteResponse;
 import br.com.gerenciadordeprodutos.api.model.Cliente;
 import br.com.gerenciadordeprodutos.api.service.ClienteService;
 import jakarta.validation.Valid;
@@ -11,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/clientes")
@@ -28,17 +26,14 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ClienteResponse buscarClientePeloId(@PathVariable Long id) {
-        var cliente = clienteService.buscarClientePeloId(id);
-        return new ClienteResponse(cliente);
+    public Cliente buscarClientePeloId(@PathVariable Long id) {
+        return clienteService.buscarClientePeloId(id);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ClienteResponse> buscarTodosClientes() {
-        return clienteService.buscarTodosClientes().stream()
-                .map(ClienteResponse::new)
-                .collect(Collectors.toList());
+    public List<Cliente> buscarTodosClientes() {
+        return clienteService.buscarTodosClientes();
     }
 
     @PutMapping("/{id}")
