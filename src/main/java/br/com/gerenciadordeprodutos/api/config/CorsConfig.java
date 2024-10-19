@@ -14,7 +14,11 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:5173"); // Adicione o endereço do seu aplicativo React
+        // Permitir o localhost para desenvolvimento
+        config.addAllowedOrigin("http://localhost:5173");
+
+        // Permitir o domínio do frontend hospedado no S3
+        config.addAllowedOrigin("http://gerenciador-de-produtos-frontend-2.s3-website-us-west-1.amazonaws.com");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
